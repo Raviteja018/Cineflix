@@ -45,7 +45,7 @@ export default function SignUpPage() {
               </button>
               <p>
                 {signStatus? "Don't have an account?" : "Already have an account? "}  
-                <a href="#" onClick={toggleForm}> {signStatus ? "Register here" : " sign in"}</a>
+                <a href="#" onClick={toggleForm}> {signStatus ? "Register here" : "sign in"}</a>
               </p>
             </form>
           </div>
