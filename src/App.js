@@ -1,12 +1,9 @@
-import './App.css';
-import SignUpPage from './signUpPage/signUpPage.js';
+import "./App.css";
 
-function App() {
+import React from 'react'
+
+export default function App() {
   return (
-    <div className="App">
-      <SignUpPage />
-    </div>
-  );
+    <div className="text-3xl">App</div>
+  )
 }
-
-export default App;
