@@ -1,9 +1,8 @@
-import "./App.css";
-
 import React from 'react'
+import Body from "./Components/Body";
 
 export default function App() {
   return (
-    <div className="text-3xl">App</div>
+    <Body/>
   )
 }
