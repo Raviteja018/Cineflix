@@ -7,26 +7,15 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCuVNXmbmAxPrnwGuLbDiRs4BSqg4rvGvE",
-  authDomain: "cineflix-c6ddd.firebaseapp.com",
-  projectId: "cineflix-c6ddd",
-  storageBucket: "cineflix-c6ddd.firebasestorage.app",
-  messagingSenderId: "234832649427",
-  appId: "1:234832649427:web:e455d6b13bdf356eab4826",
-  measurementId: "G-6PDJ3V66KC"
+  apiKey: "AIzaSyDm1lG84Jn9IAvsJmq5paVn92pyesK-Hvc",
+  authDomain: "cineflix-proje.firebaseapp.com",
+  projectId: "cineflix-proje",
+  storageBucket: "cineflix-proje.firebasestorage.app",
+  messagingSenderId: "145826297148",
+  appId: "1:145826297148:web:2554bf5d9c6303a8e49a39",
+  measurementId: "G-9Q0P4RQSBB"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
-
-
-
-
-
-
-
-
-
-
