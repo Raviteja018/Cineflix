@@ -1,19 +1,26 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import checkValidData from "../Utils/validate";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Utils/userSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const [firebaseError, setFirebaseError] = useState("");
 
   const toggleSignInForm = () => {
+    setFirebaseError("");
     setIsSignIn(!isSignIn);
     setErrorMessage({ name: "", email: "", password: "" });
     if (name.current) name.current.value = "";
@@ -24,7 +31,25 @@ export default function Login() {
   const email = useRef(null);
   const password = useRef(null);
 
+  // const getFirebaseErrorMessage = (code) => {
+  //   switch (code) {
+  //     case "auth/auth/invalid-credential":
+  //       return "No account found with this email.";
+  //     // case "auth/wrong-password":
+  //     //   return "Incorrect password. Try again.";
+  //     // case "auth/invalid-email":
+  //     //   return "Please enter a valid email address.";
+  //     // case "auth/email-already-in-use":
+  //     //   return "This email is already registered.";
+  //     // case "auth/weak-password":
+  //     //   return "Password should be at least 6 characters.";
+  //     default:
+  //       return "Something went wrong. Please try again.";
+  //   }
+  // };
+
   const handleClick = () => {
+
     const nameValue = name.current?.value || "";
     const emailValue = email.current?.value || "";
     const passwordValue = password.current?.value || "";
@@ -40,38 +65,62 @@ export default function Login() {
       return;
     }
 
-      setErrorMessage({ name: "", email: "", password: "" });
+    setErrorMessage({ name: "", email: "", password: "" });
 
-      
-      if (!isSignIn) {
-        //sign up logic
-        createUserWithEmailAndPassword(auth, email.current?.value, password.current?.value)
-          .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
-            // console.log(user);
-            // ...
+    if (!isSignIn) {
+      //sign up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current?.value,
+        password.current?.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+          // console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setFirebaseError(errorMessage);
+          // ..
+        });
+    } else {
+      // sign in logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current?.value,
+        password.current?.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current?.value,
           })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-          });
-      } else {
-        // sign in logic
-        signInWithEmailAndPassword(auth, email.current?.value, password.current?.value)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user);
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
+            .then(() => {
+            
+            })
+            
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
 
-      }
+          // console.log(user);
+          
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setFirebaseError(errorMessage);
+
+          // const firebaseErrorMessage = getFirebaseErrorMessage(errorCode);
+          // setFirebaseError(firebaseErrorMessage);
+        });
+    }
   };
 
   return (
@@ -126,6 +175,9 @@ export default function Login() {
         />
         {errorMessage.password && (
           <p className="text-red-500 text-sm">{errorMessage.password}</p>
+        )}
+        {firebaseError && (
+          <p className="text-red-500 text-sm">{firebaseError}</p>
         )}
 
         <button
