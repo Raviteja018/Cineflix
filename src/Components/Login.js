@@ -1,33 +1,77 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import checkValidData from "../Utils/validate";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Utils/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login() {
   const [isSignIn, setIsSignIn] = useState(true);
-  const [errorMessage, setErrorMessage] = useState({ name:"", email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const toggleSignInForm = () => {
     setIsSignIn(!isSignIn);
-    setErrorMessage({name:"", email:"", password:""});
-    if(name.current) name.current.value="";
-    if(email.current) email.current.value="";
-    if(password.current) password.current.value="";
+    setErrorMessage({ name: "", email: "", password: "" });
+    if (name.current) name.current.value = "";
+    if (email.current) email.current.value = "";
+    if (password.current) password.current.value = "";
   };
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleClick = () => {
-    const nameValue = name.current?.value || ""; 
+    const nameValue = name.current?.value || "";
     const emailValue = email.current?.value || "";
     const passwordValue = password.current?.value || "";
-  
-    const Message = checkValidData(nameValue, emailValue, passwordValue, isSignIn);
+
+    const Message = checkValidData(
+      nameValue,
+      emailValue,
+      passwordValue,
+      isSignIn
+    );
     if (Message) {
       setErrorMessage(Message);
-    } else {
-      setErrorMessage({ name: "", email: "", password: "" });
+      return;
     }
+
+      setErrorMessage({ name: "", email: "", password: "" });
+
+      
+      if (!isSignIn) {
+        //sign up logic
+        createUserWithEmailAndPassword(auth, email.current?.value, password.current?.value)
+          .then((userCredential) => {
+            // Signed up
+            const user = userCredential.user;
+            // console.log(user);
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+          });
+      } else {
+        // sign in logic
+        signInWithEmailAndPassword(auth, email.current?.value, password.current?.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+
+      }
   };
 
   return (
@@ -51,7 +95,7 @@ export default function Login() {
         {!isSignIn && (
           <>
             <input
-            ref={name}
+              ref={name}
               type="text"
               name="Full name"
               placeholder="Full name"
@@ -76,6 +120,7 @@ export default function Login() {
           ref={password}
           type="password"
           name="Current-Password"
+          autoComplete="Current-Password"
           placeholder="Password"
           className="p-2 my-2 w-full outline-none text-white bg-gray-700"
         />
