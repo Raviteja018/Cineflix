@@ -4,13 +4,10 @@ import checkValidData from "../Utils/validate";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../Utils/userSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState({
     name: "",
@@ -30,23 +27,6 @@ export default function Login() {
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
-
-  // const getFirebaseErrorMessage = (code) => {
-  //   switch (code) {
-  //     case "auth/auth/invalid-credential":
-  //       return "No account found with this email.";
-  //     // case "auth/wrong-password":
-  //     //   return "Incorrect password. Try again.";
-  //     // case "auth/invalid-email":
-  //     //   return "Please enter a valid email address.";
-  //     // case "auth/email-already-in-use":
-  //     //   return "This email is already registered.";
-  //     // case "auth/weak-password":
-  //     //   return "Password should be at least 6 characters.";
-  //     default:
-  //       return "Something went wrong. Please try again.";
-  //   }
-  // };
 
   const handleClick = () => {
 
@@ -78,8 +58,7 @@ export default function Login() {
           // Signed up
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
-          // console.log(user);
+
           // ...
         })
         .catch((error) => {
@@ -97,17 +76,6 @@ export default function Login() {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          updateProfile(user, {
-            displayName: name.current?.value,
-          })
-            .then(() => {
-            
-            })
-            
-            .catch((error) => {
-              // An error occurred
-              // ...
-            });
 
           // console.log(user);
           
@@ -116,9 +84,6 @@ export default function Login() {
           const errorCode = error.code;
           const errorMessage = error.message;
           setFirebaseError(errorMessage);
-
-          // const firebaseErrorMessage = getFirebaseErrorMessage(errorCode);
-          // setFirebaseError(firebaseErrorMessage);
         });
     }
   };

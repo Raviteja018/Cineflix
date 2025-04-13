@@ -2,19 +2,33 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../Utils/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import cineflix from "../Images/cineflix-logo.png";
 import { LogOut } from "lucide-react"; // Logout icon
+import { addUser, removeUser } from "../Utils/userSlice";
+import { useDispatch } from "react-redux";
+import { logo } from "../Utils/Constants";
 
 export default function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUserLoggedIn(!!user);
+      if (user) {
+        const {uid, email} = user;
+        dispatch(addUser({uid: uid, email: email, }));
+        navigate("/browse")
+       } else {
+         dispatch(removeUser());
+         navigate("/")
+       }
     });
-    return () => unsubscribe();
+    return () => unsubscribe();  //unscribes when the component unmounts
+
   }, []);
+
+
 
   const handleSignOut = () => {
     signOut(auth)
@@ -31,7 +45,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <img
           className="w-32 md:w-44 object-contain"
-          src={cineflix}
+          src={logo}
           alt="Cineflix Logo"
         />
 
