@@ -57,7 +57,6 @@ export default function Login() {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
 
           // ...
         })
@@ -77,7 +76,6 @@ export default function Login() {
         .then((userCredential) => {
           const user = userCredential.user;
 
-          // console.log(user);
           
         })
         .catch((error) => {
