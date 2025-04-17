@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
+import { BACKGROUND_CINEFLIX } from "../Utils/Constants";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -92,7 +93,7 @@ export default function Login() {
       <div className="absolute h-full w-full ">
         <img
           className="w-full h-full object-cover"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/f6e7f6df-6973-46ef-b98f-12560d2b3c69/web/IN-en-20250317-TRIFECTA-perspective_26f87873-6014-460d-a6fb-1d96d85ffe5f_large.jpg"
+          src={BACKGROUND_CINEFLIX}
           alt="logo"
         />
         <div className="absolute inset-0 bg-black/50"></div>

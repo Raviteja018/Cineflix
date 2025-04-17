@@ -3,6 +3,8 @@ import Login from "./Login";
 import Browse from "./Browse";
 import { createBrowserRouter} from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
+import Search from "./Search";
+import TvSeries from "./TvSeries";
 
 export default function Body() {
 
@@ -14,6 +16,13 @@ export default function Body() {
         {
             path: "/browse",
             element: <Browse />
+        },
+        {
+          path: "/search",
+          element: <Search />
+        },{
+          path: "/tvseries",
+          element: <TvSeries />
         }
     ]);
 
