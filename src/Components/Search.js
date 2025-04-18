@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { genreMap } from "../Utils/Constants";
 import { Home, SearchIcon } from "lucide-react"; // Importing the home icon
 
-export default function SearchHeader() {
+export default function Search() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
