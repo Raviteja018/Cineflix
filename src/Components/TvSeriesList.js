@@ -22,6 +22,7 @@ export default function TvSeriesList({ title, series }) {
             posterPath={tv.poster_path}
             title={tv.name}
             rating={tv.vote_average.toFixed(1)}
+            id={tv.id}
           />
         ))}
       </div>

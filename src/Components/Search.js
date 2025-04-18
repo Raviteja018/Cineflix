@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { genreMap } from "../Utils/Constants";
 import { SearchIcon } from "lucide-react";
 import Header from "./Header";
+import { addSearchCardDetails } from "../Utils/CardDetailsSlice";
 
 export default function Search() {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const movies = useSelector((store) => store.search?.searchMovies);
 
@@ -87,6 +89,10 @@ export default function Search() {
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title || movie.name}
                     className="w-full h-60 object-cover"
+                    onClick={() => {
+                      dispatch(addSearchCardDetails(movie.id));
+                      navigate("/searchCardInfo")
+                    }}
                   />
                   <div className="p-3 text-white">
                     <h3 className="text-base font-semibold truncate">

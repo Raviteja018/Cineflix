@@ -7,6 +7,8 @@ import Search from "./Search";
 import TvSeries from "./TvSeries";
 import MovieCardInfo from "./MovieCardInfo";
 import WishList from "./WishList";
+import TvSeriesCardInfo from "./TvSeriesCardInfo";
+import SearchCardInfo from "./SearchCardInfo";
 
 export default function Body() {
 
@@ -34,6 +36,14 @@ export default function Body() {
         {
           path: "/moviecardinfo",
           element: <MovieCardInfo/>
+        },
+        {
+          path: "/tvSeriesCardInfo",
+          element: <TvSeriesCardInfo />
+        },
+        {
+          path: "/searchCardInfo",
+          element: <SearchCardInfo />
         }
     ]);
 

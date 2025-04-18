@@ -22,6 +22,7 @@ import movieReducer from "./movieSlice";
 import searchReducer from "./SearchSlice";
 import tvSeriesReducer from "./TvSeriesSlice";
 import cardDetails from "./CardDetailsSlice";
+import wishList from "./WishListSlice";
 
 // Persist config for user slice only
 const persistConfig = {
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   tvSeries: tvSeriesReducer,
   details: cardDetails,
+  wishList: wishList,
 });
 
 // Create persisted reducer
