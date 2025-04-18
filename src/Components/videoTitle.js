@@ -5,7 +5,7 @@ export default function VideoTitle({ title, overview }) {
   const truncatedOverview = overview?.length > 120 ? overview.slice(0, 300) + '...' : overview;
 
   return (
-    <div className='absolute pt-32 px-4 md:px-12 md:pt-36 w-full md:w-2/3 lg:w-1/2 bg-gradient-to-r from-black h-screen'>
+    <div className='absolute pt-32 px-4 md:px-12 md:pt-36 w-full md:w-2/3 lg:w-1/2 bg-gradient-to-r from-black h-[1000px] aspect-video'>
       <h1 className='text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-md'>
         {title}
       </h1>

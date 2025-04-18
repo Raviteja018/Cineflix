@@ -12,7 +12,7 @@ export default function MovieList({ movies, title }) {
         <div className="overflow-x-auto scrollbar-hide transition-colors duration-300 ease-in-out">
           <div className="flex space-x-4 pb-4">
             {movies?.map((movie) => (
-              <MovieCard key={movie.id} posterPath={movie?.poster_path} title={movie?.original_title}/>
+              <MovieCard key={movie.id} posterPath={movie?.poster_path} title={movie?.original_title} id={movie?.id}/>
             ))}
           </div>
         </div>

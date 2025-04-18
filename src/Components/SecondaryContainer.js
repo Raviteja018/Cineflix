@@ -25,7 +25,7 @@ export default function SecondaryContainer() {
 
   return (
     <div className="bg-black ">
-      <div className="z-20 -mt-3 lg:-mt-60  md:-mt-12 pl-12 relative">
+      <div className="z-20 -mt-3 lg:-mt-52  md:-mt-12 pl-12 relative">
         <MovieList title="Popular Movies" movies={popularMovies} />
         <MovieList title="Trending" movies={trendingMovies}/> 
         <MovieList title="Now Playing Movies" movies={nowPlayingMovies} />

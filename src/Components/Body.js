@@ -5,6 +5,8 @@ import { createBrowserRouter} from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import Search from "./Search";
 import TvSeries from "./TvSeries";
+import MovieCardInfo from "./MovieCardInfo";
+import WishList from "./WishList";
 
 export default function Body() {
 
@@ -20,9 +22,18 @@ export default function Body() {
         {
           path: "/search",
           element: <Search />
-        },{
+        },
+        {
           path: "/tvseries",
           element: <TvSeries />
+        },
+        {
+          path: "/wishlist",
+          element: <WishList/>
+        },
+        {
+          path: "/moviecardinfo",
+          element: <MovieCardInfo/>
         }
     ]);
 
