@@ -1,12 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaStar, FaHeart, FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { API_OPTIONS, logo } from "../Utils/Constants";
+import { addToWishlistMovies } from "../Utils/WishListSlice";
 
 const MovieCardInfo = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const movie_id = useSelector((store) => store.details?.homeCardDetails);
+  console.log(movie_id);
   const [movie, setMovie] = useState(null);
 
   const fetchMovieDetails = async () => {
@@ -29,6 +32,11 @@ const MovieCardInfo = () => {
         Loading movie details... or no movie selected.
       </div>
     );
+  }
+
+  const handleWhislist = () => {
+    navigate("/wishlist");
+    dispatch(addToWishlistMovies(movie))
   }
 
   return (
@@ -85,7 +93,7 @@ const MovieCardInfo = () => {
               <FaPlay />
               Play Trailer
             </button>
-            <button className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
+            <button onClick={handleWhislist} className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
               <FaHeart className="text-red-400" />
               Add to Wishlist
             </button>

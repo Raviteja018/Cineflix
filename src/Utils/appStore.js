@@ -21,14 +21,15 @@ import userReducer from "./userSlice";
 import movieReducer from "./movieSlice";
 import searchReducer from "./SearchSlice";
 import tvSeriesReducer from "./TvSeriesSlice";
-import cardDetails from "./CardDetailsSlice";
-import wishList from "./WishListSlice";
+import cardDetailsReducer from "./CardDetailsSlice";
+import wishListReducer from "./WishListSlice";
+import VideoPlayerReducer from "./VideoPlayerSlice";
 
 // Persist config for user slice only
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"] // only persist the user slice
+  whitelist: [ "movies", "search", "details","tvSeries", "wishList"] 
 };
 
 // Combine reducers
@@ -37,8 +38,9 @@ const rootReducer = combineReducers({
   movies: movieReducer,
   search: searchReducer,
   tvSeries: tvSeriesReducer,
-  details: cardDetails,
-  wishList: wishList,
+  details: cardDetailsReducer,
+  wishList: wishListReducer,
+  videoPlayer: VideoPlayerReducer,
 });
 
 // Create persisted reducer

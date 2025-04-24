@@ -6,9 +6,10 @@ import { RouterProvider } from "react-router-dom";
 import Search from "./Search";
 import TvSeries from "./TvSeries";
 import MovieCardInfo from "./MovieCardInfo";
-import WishList from "./WishList";
+import WishList from "./MovieWishList";
 import TvSeriesCardInfo from "./TvSeriesCardInfo";
 import SearchCardInfo from "./SearchCardInfo";
+import VideoPlayer from "./VideoPlayer";
 
 export default function Body() {
 
@@ -44,6 +45,10 @@ export default function Body() {
         {
           path: "/searchCardInfo",
           element: <SearchCardInfo />
+        },
+        {
+          path: "/videoplayer",
+          element: <VideoPlayer />
         }
     ]);
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaStar, FaHeart, FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { API_OPTIONS, logo } from "../Utils/Constants";
-import { addToWishlist } from "../Utils/WishListSlice";
+import { addToWishlistMovies } from "../Utils/WishListSlice";
 
 
 const SearchCardInfo = () => {
@@ -87,7 +87,8 @@ const SearchCardInfo = () => {
               <FaPlay />
               Play Trailer
             </button>
-            <button onClick={() => {dispatch(addToWishlist(movie))}} className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
+            <button onClick={() => {dispatch(addToWishlistMovies(movie));
+            navigate("/wishlist")}} className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
               <FaHeart className="text-red-400" />
               Add to Wishlist
             </button>

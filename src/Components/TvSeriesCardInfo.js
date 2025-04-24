@@ -1,11 +1,14 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaStar, FaHeart, FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { API_OPTIONS, logo } from "../Utils/Constants";
+import {addToWishlistSeries} from "../Utils/WishListSlice";
+
 
 const TvSeriesCardInfo = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const movie_id = useSelector((store) => store.details?.tvSeriesCardDetails);
   const [movie, setMovie] = useState(null);
 
@@ -30,7 +33,11 @@ const TvSeriesCardInfo = () => {
       </div>
     );
   }
-
+  
+  const handleWishlist = () => {
+    navigate("/wishlist");
+    dispatch(addToWishlistSeries(movie))
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
       {/* Header */}
@@ -85,7 +92,7 @@ const TvSeriesCardInfo = () => {
               <FaPlay />
               Play Trailer
             </button>
-            <button className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
+            <button onClick={handleWishlist} className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
               <FaHeart className="text-red-400" />
               Add to Wishlist
             </button>
@@ -97,3 +104,32 @@ const TvSeriesCardInfo = () => {
 };
 
 export default TvSeriesCardInfo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

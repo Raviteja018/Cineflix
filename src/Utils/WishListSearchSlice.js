@@ -1,11 +1,10 @@
 // store/wishlistSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
-const WishlistSlice = createSlice({
-  name: "wishlist",
+const WishListSearchSlice = createSlice({
+  name: "searchWishlist",
   initialState: {
     movies: [],
-    tvSeries: [],
   },
   reducers: {
     // Movies
@@ -22,19 +21,6 @@ const WishlistSlice = createSlice({
         (movie) => movie.id !== action.payload
       );
     },
-    addToWishlistSeries: (state, action) => {
-      const exists = state.tvSeries.find(
-        (series) => series.id === action.payload.id
-      );
-      if (!exists) {
-        state.tvSeries.push(action.payload);
-      }
-    },
-    removeFromWishlistSeries: (state, action) => {
-      state.tvSeries = state.tvSeries.filter(
-        (series) => series.id !== action.payload
-      );
-    },
 
 
   },
@@ -43,8 +29,6 @@ const WishlistSlice = createSlice({
 export const {
   addToWishlistMovies,
   removeFromWishlist,
-  addToWishlistSeries,
-  removeFromWishlistSeries
-} = WishlistSlice.actions;
+} = WishListSearchSlice.actions;
 
-export default WishlistSlice.reducer;
+export default WishListSearchSlice.reducer;
