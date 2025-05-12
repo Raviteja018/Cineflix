@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../Utils/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { LogOut, SearchIcon, Film, Heart, Tv } from "lucide-react";
@@ -46,9 +46,10 @@ export default function Header() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className={`absolute z-30 top-0 left-0 w-full px-6 py-4 bg-gradient-to-b ${!userLoggedIn? "bg-transparent" : "from-black/80 to-transparent bg-black/50 backdrop-blur-md" } `}>
+    <>
+    {userLoggedIn && <header className={`absolute z-30 top-0 left-0 w-full px-6 py-4 bg-gradient-to-b ${!userLoggedIn? "bg-transparent" : "from-black/80 to-transparent bg-black/50 backdrop-blur-md" } `}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {userLoggedIn && (<img
+        { (<img
           className="w-32 md:w-40 drop-shadow-lg object-contain cursor-pointer"
           src={logo}
           alt="Cineflix Logo"
@@ -56,7 +57,7 @@ export default function Header() {
         />)}
 
         {/* Desktop Nav */}
-        {userLoggedIn && (<nav className="hidden md:flex items-center gap-6 text-white text-sm font-medium">
+        { (<nav className="hidden md:flex items-center gap-6 text-white text-sm font-medium">
           {navItems.map((item) => (
             <div
               key={item.path}
@@ -80,7 +81,7 @@ export default function Header() {
 
         {/* Sign Out */}
         <div className="flex items-center gap-3">
-          {userLoggedIn && (
+          {(
             <button
               onClick={handleSignOut}
               className="flex items-center gap-2 text-sm bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full font-semibold shadow-md transition-all"
@@ -113,6 +114,8 @@ export default function Header() {
           <span className="hidden sm:inline">Search</span>
         </div>
       </div>
-    </header>
+    </header>}
+    </>
   );
 }
+

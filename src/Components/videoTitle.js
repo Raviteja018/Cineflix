@@ -16,9 +16,10 @@ export default function VideoTitle({ title, overview, movieId, movie }) {
       <h1 className='text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-md'>
         {title}
       </h1>
-      <p className='py-3 md:py-5 text-sm md:text-base lg:text-lg text-white max-w-xl leading-relaxed opacity-90'>
+      <p className='hidden md:block py-3 md:py-5 text-sm md:text-base lg:text-lg text-white max-w-xl leading-relaxed opacity-90'>
         {truncatedOverview}
       </p>
+      
 
       <div className='hidden sm:flex gap-4 mt-6'>
         <button onClick={() => {
