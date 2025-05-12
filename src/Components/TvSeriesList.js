@@ -1,7 +1,8 @@
 import React from "react";
 import TvSeriesCard from "./TvSeriesCard";
+import ShimmerTvCard from "./ShimmerTvCard";
 
-export default function TvSeriesList({ title, series }) {
+export default function TvSeriesList({ title, series, loading }) {
   if (!series || series.length === 0) return null;
 
   return (
@@ -16,13 +17,14 @@ export default function TvSeriesList({ title, series }) {
 
       {/* TV Series Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-        {series.map((tv) => (
+        {loading? Array(10).fill().map((_, i) => <ShimmerTvCard key={i}/>) : series.map((tv) => (
           <TvSeriesCard
             key={tv.id}
             posterPath={tv.poster_path}
             title={tv.name}
             rating={tv.vote_average.toFixed(1)}
             id={tv.id}
+            tv={tv}
           />
         ))}
       </div>

@@ -11,7 +11,7 @@ export default function MainContainer() {
     const {title, overview, id} = mainMovie;
   return (
     <div>
-      <VideoTitle title={title} overview={overview} movieId = {id}/>
+      <VideoTitle title={title} overview={overview} movieId = {id} movie={mainMovie}/>
       <VideoBackground movieId ={id}/>
     </div>
   )

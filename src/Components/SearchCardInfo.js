@@ -4,27 +4,13 @@ import { FaStar, FaHeart, FaPlay } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { API_OPTIONS, logo } from "../Utils/Constants";
 import { addToWishlistMovies } from "../Utils/WishListSlice";
-
+import { addVideoId } from "../Utils/VideoPlayerSlice";
 
 const SearchCardInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const movie_id = useSelector((store) => store.details?.searchCardDetails);
-  const [movie, setMovie] = useState(null);
-
-  const fetchMovieDetails = async () => {
-    try {
-      const data = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}`, API_OPTIONS);
-      const json = await data.json();
-      setMovie(json);
-    } catch (err) {
-      console.error("Failed to fetch movie:", err);
-    }
-  };
-
-  useEffect(() => {
-    if (movie_id) fetchMovieDetails();
-  }, [movie_id]);
+  const movie = useSelector((store) => store.details?.searchCardDetails);
+  console.log(movie)
 
   if (!movie) {
     return (
@@ -34,14 +20,22 @@ const SearchCardInfo = () => {
     );
   }
 
+  const handleWishlist = () => {
+    dispatch(addToWishlistMovies(movie));
+    navigate("/wishlist");
+  };
+
+  const handlePlay = () => {
+    navigate("/videoPlayer");
+    dispatch(addVideoId(movie.id))
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 bg-black bg-opacity-80 shadow-md sticky top-0 z-50">
         <img src={logo} className=" w-36 text-2xl font-bold text-red-600" />
-        <button
-          className="text-white px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition"
-        >
+        <button className="text-white px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition">
           Back to Home
         </button>
       </header>
@@ -59,7 +53,9 @@ const SearchCardInfo = () => {
 
         {/* Movie Info */}
         <div className="md:col-span-2 flex flex-col justify-center">
-          <h1 className="text-4xl font-extrabold mb-4">{movie.original_title}</h1>
+          <h1 className="text-4xl font-extrabold mb-4">
+            {movie.original_title}
+          </h1>
           <p className="text-gray-300 mb-4">{movie.overview}</p>
 
           <div className="flex flex-wrap gap-4 mb-6 text-sm text-gray-300">
@@ -83,12 +79,16 @@ const SearchCardInfo = () => {
 
           {/* Buttons */}
           <div className="flex gap-4">
-            <button className="flex items-center gap-2 px-5 py-3 bg-red-600 hover:bg-red-700 rounded-xl shadow-lg transition">
+            <button
+             onClick={handlePlay}
+             className="flex items-center gap-2 px-5 py-3 bg-red-600 hover:bg-red-700 rounded-xl shadow-lg transition">
               <FaPlay />
               Play Trailer
             </button>
-            <button onClick={() => {dispatch(addToWishlistMovies(movie));
-            navigate("/wishlist")}} className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
+            <button
+              onClick={handleWishlist}
+              className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition"
+            >
               <FaHeart className="text-red-400" />
               Add to Wishlist
             </button>

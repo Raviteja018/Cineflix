@@ -10,33 +10,33 @@ const WishlistSlice = createSlice({
   reducers: {
     // Movies
     addToWishlistMovies: (state, action) => {
-      const exists = state.movies.find(
-        (movie) => movie.id === action.payload.id
+      const exists = state.movies?.find(
+        (movie) => movie?.id === action.payload?.id
       );
-      if (!exists) {
+      if (action.payload && !exists) {
         state.movies.push(action.payload);
       }
     },
     removeFromWishlist: (state, action) => {
-      state.movies = state.movies.filter(
-        (movie) => movie.id !== action.payload
+      state.movies = state.movies?.filter(
+        (movie) => movie?.id !== action.payload
       );
     },
+
+    // TV Series
     addToWishlistSeries: (state, action) => {
-      const exists = state.tvSeries.find(
-        (series) => series.id === action.payload.id
+      const exists = state.tvSeries?.find(
+        (series) => series?.id === action.payload?.id
       );
-      if (!exists) {
+      if (action.payload && !exists) {
         state.tvSeries.push(action.payload);
       }
     },
     removeFromWishlistSeries: (state, action) => {
-      state.tvSeries = state.tvSeries.filter(
-        (series) => series.id !== action.payload
+      state.tvSeries = state.tvSeries?.filter(
+        (series) => series?.id !== action.payload
       );
     },
-
-
   },
 });
 
@@ -44,7 +44,7 @@ export const {
   addToWishlistMovies,
   removeFromWishlist,
   addToWishlistSeries,
-  removeFromWishlistSeries
+  removeFromWishlistSeries,
 } = WishlistSlice.actions;
 
 export default WishlistSlice.reducer;

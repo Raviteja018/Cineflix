@@ -10,6 +10,7 @@ import WishList from "./MovieWishList";
 import TvSeriesCardInfo from "./TvSeriesCardInfo";
 import SearchCardInfo from "./SearchCardInfo";
 import VideoPlayer from "./VideoPlayer";
+import VideoInfo from "./VideoInfo.js";
 
 export default function Body() {
 
@@ -49,6 +50,10 @@ export default function Body() {
         {
           path: "/videoplayer",
           element: <VideoPlayer />
+        },
+        {
+          path: "/videoinfo",
+          element: <VideoInfo />
         }
     ]);
 

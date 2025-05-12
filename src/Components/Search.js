@@ -15,6 +15,14 @@ export default function Search() {
 
   const movies = useSelector((store) => store.search?.searchMovies);
 
+   useEffect(() => {
+    dispatch(addSearchMovies(null)); // clear on mount
+
+    return () => {
+      dispatch(addSearchMovies(null)); // clear on unmount
+    };
+  }, []);
+
   const searchResults = async () => {
     const data = await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${query}`,
@@ -41,6 +49,8 @@ export default function Search() {
     }
   };
 
+  // const handleClick = ;
+
   return (
     <div className="relative min-h-screen w-full">
       {/* Background */}
@@ -62,15 +72,14 @@ export default function Search() {
             <input
               onChange={handleChange}
               type="text"
-              placeholder="Search for movies, shows, or actors..."
+              placeholder="Search for movies, shows..."
               className="bg-transparent outline-none text-white placeholder-white/60 flex-1 text-lg"
             />
             <button
               onClick={searchResults}
-              className="flex gap-4 ml-4 bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full font-semibold transition-all"
+              className=" bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full font-semibold transition-all"
             >
               <SearchIcon />
-              Search
             </button>
           </div>
         </div>
@@ -90,8 +99,8 @@ export default function Search() {
                     alt={movie.title || movie.name}
                     className="w-full h-60 object-cover"
                     onClick={() => {
-                      dispatch(addSearchCardDetails(movie.id));
-                      navigate("/searchCardInfo")
+                      dispatch(addSearchCardDetails(movie));
+                      navigate("/searchCardInfo");
                     }}
                   />
                   <div className="p-3 text-white">

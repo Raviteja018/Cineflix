@@ -1,30 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaStar, FaHeart, FaPlay } from "react-icons/fa";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { API_OPTIONS, logo } from "../Utils/Constants";
 import { addToWishlistMovies } from "../Utils/WishListSlice";
+import { addVideoId } from "../Utils/VideoPlayerSlice";
 
 const MovieCardInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const movie_id = useSelector((store) => store.details?.homeCardDetails);
-  console.log(movie_id);
-  const [movie, setMovie] = useState(null);
-
-  const fetchMovieDetails = async () => {
-    try {
-      const data = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}`, API_OPTIONS);
-      const json = await data.json();
-      setMovie(json);
-    } catch (err) {
-      console.error("Failed to fetch movie:", err);
-    }
-  };
-
-  useEffect(() => {
-    if (movie_id) fetchMovieDetails();
-  }, [movie_id]);
+  const movie = useSelector((store) => store.details?.homeCardDetails);
 
   if (!movie) {
     return (
@@ -34,10 +19,15 @@ const MovieCardInfo = () => {
     );
   }
 
+  const handlePlay = () => {
+    dispatch(addVideoId(movie.id));
+    navigate("/videoplayer");
+  };
+
   const handleWhislist = () => {
     navigate("/wishlist");
-    dispatch(addToWishlistMovies(movie))
-  }
+    dispatch(addToWishlistMovies(movie));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
@@ -89,11 +79,17 @@ const MovieCardInfo = () => {
 
           {/* Buttons */}
           <div className="flex gap-4">
-            <button className="flex items-center gap-2 px-5 py-3 bg-red-600 hover:bg-red-700 rounded-xl shadow-lg transition">
+            <button
+              onClick={handlePlay}
+              className="flex items-center gap-2 px-5 py-3 bg-red-600 hover:bg-red-700 rounded-xl shadow-lg transition"
+            >
               <FaPlay />
               Play Trailer
             </button>
-            <button onClick={handleWhislist} className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition">
+            <button
+              onClick={handleWhislist}
+              className="flex items-center gap-2 px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl shadow-lg transition"
+            >
               <FaHeart className="text-red-400" />
               Add to Wishlist
             </button>

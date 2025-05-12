@@ -1,8 +1,7 @@
-import React from "react";
 import MovieCard from "./MovieCard";
-import { original } from "@reduxjs/toolkit";
+import ShimmerMovieCard from "./ShimmerMovieCard";
 
-export default function MovieList({ movies, title }) {
+export default function MovieList({ movies, title, loading }) {
   return (
     movies && (
       <div className="p-4 sm:p-6">
@@ -11,9 +10,17 @@ export default function MovieList({ movies, title }) {
         </h2>
         <div className="overflow-x-auto scrollbar-hide transition-colors duration-300 ease-in-out">
           <div className="flex space-x-4 pb-4">
-            {movies?.map((movie) => (
-              <MovieCard key={movie.id} posterPath={movie?.poster_path} title={movie?.original_title} id={movie?.id}/>
-            ))}
+            {loading
+              ? Array(10).fill().map((_, i) => <ShimmerMovieCard key={i} />)
+              : movies.map((movie) => (
+                  <MovieCard
+                    key={movie.id}
+                    posterPath={movie?.poster_path}
+                    title={movie?.original_title}
+                    id={movie?.id}
+                    movie={movie}
+                  />
+                ))}
           </div>
         </div>
       </div>

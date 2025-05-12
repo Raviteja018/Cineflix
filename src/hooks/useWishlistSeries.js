@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 const useWishlistSeries = () => {
   const dispatch = useDispatch();
   const movieId = useSelector((store) => store.details?.tvSeriesCardDetails);
-  console.log(movieId)
   const getWishlist = async () => {
     const data = await fetch(
       `https://api.themoviedb.org/3/tv/${movieId}`,

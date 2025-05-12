@@ -5,14 +5,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-export default function MovieCard({ posterPath, id }) {
+export default function MovieCard({ posterPath, id, movie }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <div className="min-w-[95px] sm:min-w-[100px] md:min-w-[120px] lg:min-w-[150px] cursor-pointer">
       <img
         onClick={() => {
-          dispatch(addHomeCardDetails(id));
+          dispatch(addHomeCardDetails(movie));
           navigate("/moviecardinfo")
         }}
         alt="movie-poster"

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Info, PlayIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { addVideoId } from '../Utils/VideoPlayerSlice';
+import { addVideoId, addVideoInfo } from '../Utils/VideoPlayerSlice';
 import { useDispatch } from 'react-redux';
 
-export default function VideoTitle({ title, overview, movieId }) {
+export default function VideoTitle({ title, overview, movieId, movie }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,7 +30,8 @@ export default function VideoTitle({ title, overview, movieId }) {
           <span>Play</span>
         </button>
 
-        <button className='flex items-center gap-3 bg-white/20 text-white font-semibold py-2.5 px-6 text-base lg:text-lg rounded-full hover:bg-white/30 shadow-md transition-all duration-200'>
+        <button onClick={() =>{ navigate("/videoinfo");
+        dispatch(addVideoInfo(movie))}} className='flex items-center gap-3 bg-white/20 text-white font-semibold py-2.5 px-6 text-base lg:text-lg rounded-full hover:bg-white/30 shadow-md transition-all duration-200'>
           <Info className='w-5 h-5 lg:w-6 lg:h-6' />
           <span>More Info</span>
         </button>
