@@ -9,7 +9,7 @@ import {
 import { auth } from "../Utils/firebase";
 import { useDispatch } from "react-redux";
 import { BACKGROUND_CINEFLIX } from "../Utils/Constants";
-import cineflixLogo from "../Images/cineflix-logo.png"; 
+import cineflixLogo from "../Images/cineflix-logo.png";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -39,7 +39,12 @@ export default function Login() {
     const emailValue = email.current?.value || "";
     const passwordValue = password.current?.value || "";
 
-    const Message = checkValidData(nameValue, emailValue, passwordValue, isSignIn);
+    const Message = checkValidData(
+      nameValue,
+      emailValue,
+      passwordValue,
+      isSignIn
+    );
     if (Message) {
       setErrorMessage(Message);
       return;
@@ -147,6 +152,11 @@ export default function Login() {
             : "Already a user? Sign In"}
         </p>
       </form>
+      <div className="flex gap-2 fixed z-50 bottom-4 left-1/2 transform -translate-x-1/2 text-white text-xs bg-black bg-opacity-70 p-4 rounded-lg opacity-70">
+        <h4 className="font-bold">Use Credentials: </h4>
+        <p>Email Id: ravi@gmail.com</p>
+        <p>Password: Ravi@123</p>
+      </div>
     </div>
   );
 }

@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <>
-    {userLoggedIn && <header className={`absolute z-30 top-0 left-0 w-full px-6 py-4 bg-gradient-to-b ${!userLoggedIn? "bg-transparent" : "from-black/80 to-transparent bg-black/50 backdrop-blur-md" } `}>
+    {userLoggedIn && <header className={`absolute z-30 top-0 left-0 w-screen px-6 py-4 bg-gradient-to-b ${!userLoggedIn? "bg-transparent" : "from-black/80 to-transparent bg-black/50 backdrop-blur-md" } `}>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         { (<img
           className="w-32 md:w-40 drop-shadow-lg object-contain cursor-pointer"
